@@ -6,6 +6,8 @@ const Home = () => {
   const [places, setPlaces] = useState([]);
   const [guides, setGuides] = useState([]);
   const [search, setSearch] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
     fetchPlaces();
@@ -30,12 +32,29 @@ const Home = () => {
     }
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (search) => {
+    console.log("value",search);
+    if (!search.trim()) {
+      setFilteredResults([]);
+      return;
+    }
+
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASEURL}/api/User/Search`);
-      setPlaces(res.data.data);
+      const res = await axios.get(`${import.meta.env.VITE_BASEURL}/api/User/Search?query=${search}`);
+      console.log("url",res)
+      setFilteredResults(res.data.data?.places || []);
+      setShowResults(true);
     } catch (error) {
-      console.error('Search error:', error);
+      console.error('Error in search', error);
+      setFilteredResults([]);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setSearch(e.target.value);
+    if (e.target.value.trim() === '') {
+      setFilteredResults([]);
+      setShowResults(false);
     }
   };
 
@@ -48,14 +67,55 @@ const Home = () => {
           <h1 className="text-4xl md:text-5xl font-bold leading-tight text-primary">
             Discover <br /> Plan & Explore with <span className="text-secondary">Trekkora 🌍</span>
           </h1>
-          <div className="flex flex-col items-center justify-center gap-4 w-full">
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search place or guide..."
-              className="w-full sm:w-80 px-4 py-2 bg-secondary rounded text-black focus:outline-none"
-            />
+
+          {/* Search bar */}
+          <div className="flex flex-col items-center justify-center gap-4 w-full relative">
+            <div className="relative w-full sm:w-80">
+              <input
+                type="text"
+                value={search}
+                onChange={handleInputChange}
+                onFocus={() => search.trim() !== '' && setShowResults(true)}
+                onBlur={() => setTimeout(() => setShowResults(false), 200)}
+                onKeyPress={(e) =>  handleSearch(e.target.value)}
+                placeholder="Search place or guide..."
+                className="w-full px-4 py-2 bg-secondary rounded text-black focus:outline-none"
+              />
+              {showResults && (
+                <div className="absolute z-10 w-full mt-1 max-h-64 overflow-y-auto bg-white shadow-lg rounded-md border border-gray-200">
+                  {filteredResults.length > 0 ? (
+                    filteredResults.map((place) => (
+                      <div
+                        key={place.placeId}
+                        className="flex items-center p-3 border-b border-gray-200 hover:bg-gray-50 cursor-pointer"
+                        onClick={() => {
+                          setSearch(place.placeName);
+                          setShowResults(false);
+                        }}
+                      >
+                        <img
+                          src={place.imageUrl || 'https://via.placeholder.com/100'}
+                          alt={place.placeName}
+                          className="w-12 h-12 object-cover rounded-md mr-3"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-medium text-gray-900 truncate">
+                            {place.placeName}
+                          </h3>
+                          <p className="text-xs text-gray-500 truncate">
+                            {place.countryName}
+                          </p>
+                        </div>
+                      </div>
+                    ))
+                  ) : search.trim() ? (
+                    <div className="p-3 text-center text-gray-500">
+                      No results found
+                    </div>
+                  ) : null}
+                </div>
+              )}
+            </div>
             <button
               onClick={handleSearch}
               className="bg-primary text-white px-6 py-2 rounded-lg shadow hover:scale-105 transition"
@@ -63,9 +123,11 @@ const Home = () => {
               Explore
             </button>
           </div>
-          <p className="text-sm text-gray-700">
+
+          <p className="text-sm text-gray-700 mt-4">
             Find top-rated places and guides to make your journey unforgettable. Explore the best treks and professional guides with us.
           </p>
+
           <div className="flex gap-6">
             <div className="w-28 h-28 bg-white rounded-lg shadow-md flex flex-col items-center justify-center hover:bg-gray-100 transition">
               <img
@@ -96,6 +158,7 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Rest of your components remain exactly the same */}
       {/* Popular Places */}
       <div className="px-6 md:px-20 mb-12">
         <h2 className="text-3xl font-bold mb-6 text-third text-center">Popular Places</h2>
@@ -111,11 +174,13 @@ const Home = () => {
                   alt={place.name}
                   className="w-full h-40 object-cover rounded"
                 />
-                <h3 className="text-lg font-bold mt-2 text-third">{place.placeName} - {place.countryName}</h3>
+                <h3 className="text-lg font-bold mt-2 text-third">
+                  {place.placeName} - {place.countryName}
+                </h3>
               </div>
             ))
           ) : (
-            <p className="text-gray-500">No places available.</p>
+            <p className="text-gray-500 col-span-full text-center">No places found.</p>
           )}
         </div>
       </div>
@@ -131,16 +196,20 @@ const Home = () => {
                 className="bg-white shadow-lg rounded-lg p-4 hover:shadow-xl hover:scale-105 transition duration-300"
               >
                 <img
-                  src={guide.getGuideProfileDto.profileImage || "https://via.placeholder.com/150"}
+                  src={guide.getGuideProfileDto?.profileImage || "https://via.placeholder.com/150"}
                   alt={guide.name}
                   className="w-full h-100 object-cover rounded"
                 />
-                <h3 className="text-lg font-bold mt-2 text-third">{guide.name} - {guide.getGuideProfileDto.placeName}</h3>
-                <p className="text-sm text-third">Experience: {guide.getGuideProfileDto.experience || '2'}+ years</p>
+                <h3 className="text-lg font-bold mt-2 text-third">
+                  {guide.name} - {guide.getGuideProfileDto?.placeName}
+                </h3>
+                <p className="text-sm text-third">
+                  Experience: {guide.getGuideProfileDto?.experience || '2'}+ years
+                </p>
               </div>
             ))
           ) : (
-            <p className="text-gray-500">No guides available.</p>
+            <p className="text-gray-500 col-span-full text-center">No guides found.</p>
           )}
         </div>
       </div>

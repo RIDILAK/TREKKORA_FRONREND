@@ -9,19 +9,19 @@ const About = () => {
         <div className="flex flex-col gap-6 md:w-1/2">
           <div className="flex gap-4">
             <img
-              src="https://i.pinimg.com/564x/f2/41/aa/f241aadf6decb377e97346d843154520.jpg"
-              className="w-[150px] h-[150px] rounded-lg shadow-lg"
+              src="https://i.pinimg.com/736x/f3/a1/f5/f3a1f512dee3cef4940b1b40799d08cc.jpg"
+              className="w-[180px] h-[180px] rounded-lg shadow-lg"
               alt="Trek 1"
             />
             <img
-              src="https://i.pinimg.com/564x/1e/71/4c/1e714c3509aa640843e77e1a27304117.jpg"
-              className="w-[150px] h-[150px] rounded-lg shadow-lg"
+              src="https://i.pinimg.com/736x/8a/5f/0c/8a5f0ce4c1bb2af50e240b7dc3d27c86.jpg"
+              className="w-[180px] h-[180px] rounded-lg shadow-lg"
               alt="Trek 2"
             />
           </div>
           <img
-            src="https://i.pinimg.com/564x/55/ce/9c/55ce9c1f929cbe72ac0b3e68f1f36270.jpg"
-            className="w-[320px] h-[180px] rounded-lg shadow-xl ml-12"
+            src="https://i.pinimg.com/736x/16/7a/e4/167ae4065bd58e4aaf3f9776a1e74db5.jpg"
+            className="w-[180px] h-[180px] rounded-lg shadow-xl ml-12"
             alt="Trek 3"
           />
         </div>
@@ -58,30 +58,30 @@ const About = () => {
         {/* Stats */}
         <div className="md:w-1/2 grid grid-cols-2 sm:grid-cols-2 gap-6 text-center">
           <div className="bg-white p-6 rounded-lg shadow">
-            <h4 className="text-2xl font-bold text-secondary">1000+</h4>
+            <h4 className="text-2xl font-bold text-third">1000+</h4>
             <p className="text-sm text-gray-600">Places</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
-            <h4 className="text-2xl font-bold text-secondary">500+</h4>
+            <h4 className="text-2xl font-bold text-third">500+</h4>
             <p className="text-sm text-gray-600">Guides</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
-            <h4 className="text-2xl font-bold text-secondary">12+</h4>
+            <h4 className="text-2xl font-bold text-third">12+</h4>
             <p className="text-sm text-gray-600">Years of Experience</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow">
-            <h4 className="text-2xl font-bold text-secondary">3</h4>
+            <h4 className="text-2xl font-bold text-third">3</h4>
             <p className="text-sm text-gray-600">Branches</p>
           </div>
         </div>
       </div>
 
-      {/* Full Width Image */}
-      <div className="w-full">
+      {/* Full Width Image Section */}
+      <div className="w-full h-[550px]">
         <img
           src="https://i.pinimg.com/736x/9b/96/33/9b9633efa1681da26a5f429c429acd04.jpg"
           alt="Scenic Journey"
-          className="w-full h-[500px] object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
 
