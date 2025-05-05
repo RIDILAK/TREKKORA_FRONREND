@@ -3,39 +3,60 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const role = location.state?.role;
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-  const location = useLocation();
-  const role = location.state?.role;
 
   const [message, setMessage] = useState('');
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-const handlenavigate=()=>{
-    navigate('/login')
-}
-  const handleSubmit = async (e) => {
-    console.log(role);
-    
-    e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match");
-      return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errors = {};
+
+    // Field-level validations
+    if (!formData.fullName.trim()) {
+      errors.fullName = "Full Name is required";
+    } else if (formData.fullName.length < 3) {
+      errors.fullName = "Full Name must be at least 3 characters";
     }
 
+    if (!formData.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email format";
+    }
+
+    if (!formData.password) {
+      errors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      errors.confirmPassword = "Passwords do not match";
+    }
+
+    setValidationErrors(errors);
+    if (Object.keys(errors).length > 0) return;
+
+    // API Call
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASEURL}/api/Auth/Register`, {
         name: formData.fullName,
         email: formData.email,
-        role:role,
+        role: role,
         password: formData.password,
       });
 
@@ -47,6 +68,8 @@ const handlenavigate=()=>{
           password: '',
           confirmPassword: '',
         });
+        setValidationErrors({});
+        setTimeout(() => navigate('/login'), 1500); // Redirect after a short delay
       } else {
         setMessage(response.data.message || "Something went wrong");
       }
@@ -59,7 +82,7 @@ const handlenavigate=()=>{
   return (
     <div className="min-h-screen bg-secondary flex items-center justify-center px-4">
       <div className="flex w-full max-w-5xl bg-white rounded-xl shadow-2xl overflow-hidden">
-        
+
         {/* Left Panel */}
         <div className="hidden md:flex w-1/2 bg-third text-white p-10 flex-col justify-center items-center">
           <h2 className="text-4xl font-bold mb-4">Welcome!</h2>
@@ -84,7 +107,11 @@ const handlenavigate=()=>{
                 placeholder="Your name"
                 className="w-full mt-1 px-4 py-2 border border-fourth rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary"
               />
+              {validationErrors.fullName && (
+                <p className="text-sm text-red-600">{validationErrors.fullName}</p>
+              )}
             </div>
+
             <div>
               <label className="text-sm font-medium text-third">Email</label>
               <input
@@ -95,7 +122,11 @@ const handlenavigate=()=>{
                 placeholder="example@mail.com"
                 className="w-full mt-1 px-4 py-2 border border-fourth rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary"
               />
+              {validationErrors.email && (
+                <p className="text-sm text-red-600">{validationErrors.email}</p>
+              )}
             </div>
+
             <div>
               <label className="text-sm font-medium text-third">Password</label>
               <input
@@ -106,7 +137,11 @@ const handlenavigate=()=>{
                 placeholder="••••••••"
                 className="w-full mt-1 px-4 py-2 border border-fourth rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary"
               />
+              {validationErrors.password && (
+                <p className="text-sm text-red-600">{validationErrors.password}</p>
+              )}
             </div>
+
             <div>
               <label className="text-sm font-medium text-third">Confirm Password</label>
               <input
@@ -117,11 +152,14 @@ const handlenavigate=()=>{
                 placeholder="••••••••"
                 className="w-full mt-1 px-4 py-2 border border-fourth rounded-md shadow-sm focus:outline-none focus:ring focus:ring-primary"
               />
+              {validationErrors.confirmPassword && (
+                <p className="text-sm text-red-600">{validationErrors.confirmPassword}</p>
+              )}
             </div>
+
             <button
               type="submit"
               className="w-full py-2 bg-primary text-white font-semibold rounded-md hover:bg-third transition"
-              onClick={handlenavigate}
             >
               Sign Up
             </button>

@@ -8,6 +8,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+ 
 
   const handleLogin = () => {
     axios
@@ -19,9 +20,10 @@ function Login() {
         if (res.status === 200) {
             console.log(res);
             
-          localStorage.setItem("token", res.data.token); 
+          localStorage.setItem("token", res.data.data); 
           
 toast.success("Login Successfull!")
+navigate('/')
         //   Swal.fire({
         //     icon: "success",
         //     text: "Login successful!",
