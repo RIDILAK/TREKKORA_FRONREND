@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import ImageViewer from "../../../../Components/ImageViewer";
 
 const PlaceDetails = () => {
   const { id } = useParams();
@@ -24,6 +25,8 @@ const PlaceDetails = () => {
       })
       .then((response) => {
         setPlace(response.data.data);
+        console.log(response.data.data,"new");
+        
       })
       .catch((error) => {
         console.error("Error fetching place details:", error);
@@ -51,6 +54,9 @@ const PlaceDetails = () => {
     console.log("Wishlist ID:", id);
   };
 
+  console.log(place);
+  
+
   return (
     <div className="bg-gray-100 text-black min-h-screen flex flex-col justify-between">
       {/* Main Content */}
@@ -58,11 +64,11 @@ const PlaceDetails = () => {
         <div className="w-full max-w-4xl bg-fourth rounded-lg shadow-md p-6">
           {/* Image */}
           <div className="relative w-full h-64 lg:h-96 overflow-hidden rounded-lg shadow-lg mb-6">
-            <img
-              src={place.imageUrl}
-              alt={place.placeName}
+          <ImageViewer base64Data={place.imageUrl } alt={place.placeName}
               className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
+
+            
             <button
               onClick={() => handleAddToWishlist(place.id)}
               className="absolute top-3 right-3 text-2xl text-primary bg-white p-2 rounded-full shadow-md hover:bg-secondary hover:text-white duration-200"

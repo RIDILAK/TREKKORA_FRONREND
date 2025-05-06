@@ -9,11 +9,12 @@ import Footer from '../Modules/User/LayOut/Footer.jsx';
 import PlacePage from '../Modules/User/Pages/Places/PlacePage.jsx';
 import PlaceDetails from '../Modules/User/Pages/Places/PlaceDetailsPage.jsx';
 import About from '../Modules/User/Pages/About.jsx';
+import GuidePage from '../Modules/User/Pages/Guide/GuidePage.jsx';
+import GuideDetails from '../Modules/User/Pages/Guide/GuideDetailsPage.jsx';
 
 const UserRouter = () => {
   const location = useLocation();
 
-  
   const hideLayoutRoutes = ['/register', '/signup', '/login'];
   const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
 
@@ -30,6 +31,8 @@ const UserRouter = () => {
         <Route path='explore' element={<PlacePage />} />
         <Route path='PlaceDetails/:id' element={<PlaceDetails />} />
         <Route path='about' element={<About />} />
+        <Route path='guide' element={<GuidePage />} />
+        <Route path='guideDetails/:id' element={<GuideDetails/>}/>
       </Routes>
       {!shouldHideLayout && <Footer />}
     </div>
