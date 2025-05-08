@@ -4,12 +4,15 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { WishListProvider } from './Modules/User/Context.jsx/WishListContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+    <WishListProvider>
     <App />
     <Toaster position="top-right" reverseOrder={false} />
+    </WishListProvider>
     </BrowserRouter>
   </StrictMode>,
 )

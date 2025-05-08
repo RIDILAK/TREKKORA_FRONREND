@@ -3,11 +3,13 @@ import { FaHeart, FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ImageViewer from '../../../../Components/ImageViewer';
+import { useWishList } from '../../Context.jsx/WishListContext';
 
 const PlacePage = () => {
   const [places, setPlaces] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const {AddOrRemoveWishList}=useWishList();
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -85,8 +87,8 @@ const PlacePage = () => {
             className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col"
           >
             <div className="relative">
-            <ImageViewer base64Data={place.imageUrl } alt={place.placeName} className="w-full h-52 object-cover" />
-              <button className="absolute top-3 right-3 text-white bg-white/70 hover:bg-white/90 rounded-full p-2 shadow">
+            <ImageViewer base64Data={place.imageUrl} alt={place.placeName} className="w-full h-52 object-cover" />
+              <button onClick={()=>AddOrRemoveWishList(place.id)} className="absolute top-3 right-3 text-white bg-white/70 hover:bg-white/90 rounded-full p-2 shadow">
                 <FaHeart size={18} className="text-red-500" />
               </button>
             </div>

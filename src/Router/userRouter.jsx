@@ -11,6 +11,7 @@ import PlaceDetails from '../Modules/User/Pages/Places/PlaceDetailsPage.jsx';
 import About from '../Modules/User/Pages/About.jsx';
 import GuidePage from '../Modules/User/Pages/Guide/GuidePage.jsx';
 import GuideDetails from '../Modules/User/Pages/Guide/GuideDetailsPage.jsx';
+import WishList from '../Modules/User/Pages/WishList/WishList.jsx';
 
 const UserRouter = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const UserRouter = () => {
         <Route path='about' element={<About />} />
         <Route path='guide' element={<GuidePage />} />
         <Route path='guideDetails/:id' element={<GuideDetails/>}/>
+        <Route path='wishList' element={<WishList/>}/>
       </Routes>
       {!shouldHideLayout && <Footer />}
     </div>

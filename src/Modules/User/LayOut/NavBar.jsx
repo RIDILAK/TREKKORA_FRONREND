@@ -41,10 +41,10 @@ const Navbar = () => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem("token"); // Clear login token
+    localStorage.removeItem("token"); 
     setIsLoggedIn(false);
     setShowMenu(false);
-    navigate('/login');
+    navigate('/register');
   };
 
   const handleLogin = () => {
@@ -64,7 +64,9 @@ const Navbar = () => {
   return (
     <>
       <ToastContainer />
-      <nav className="bg-[#9AB3A5] text-secondary p-4 relative shadow-md">
+      <nav className="bg-[#9AB3A5] text-secondary p-4 sticky top-0 z-50 shadow-md">
+
+
         <div className="container mx-auto flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-4">
