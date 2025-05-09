@@ -16,7 +16,7 @@ const GuidePage = () => {
         `${import.meta.env.VITE_BASEURL}/api/GuidProfile/All`
       );
       setGuides(res.data.data);
-      console.log(res.data.data,"data");
+      console.log(res.data.data,"ddcfvg");
       
     } catch (error) {
       console.error("Error fetching guides:", error);

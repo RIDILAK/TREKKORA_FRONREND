@@ -109,7 +109,7 @@ const PlaceDetails = () => {
             {/* Book Button placed below climate */}
             <div className="flex justify-center mt-4">
               <button
-                onClick={() => navigate(`/book/${place.id}`)}
+                onClick={() => navigate(`/booking/${place.id}`)}
                 className="px-8 py-3 bg-third text-white font-semibold rounded-md shadow hover:bg-secondary hover:shadow-lg transform hover:scale-105 transition duration-300"
               >
                 Book Now

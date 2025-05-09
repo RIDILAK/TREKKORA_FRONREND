@@ -3,6 +3,8 @@ import axios from "axios";
 import mainimage from "../../../assets/image.png";
 import { useNavigate } from "react-router-dom";
 import ImageViewer from "../../../Components/ImageViewer";
+import Navbar from "../LayOut/NavBar";
+import Footer from "../LayOut/Footer";
 
 const Home = () => {
   const [places, setPlaces] = useState([]);
@@ -74,6 +76,8 @@ const Home = () => {
   return (
     <>
       {/* Hero Section */}
+      <Navbar/>
+
       <div className="w-full bg-white py-16 px-6 md:px-20 flex flex-col-reverse md:flex-row items-center justify-between gap-10 rounded-lg mb-16">
         {/* Left */}
         <div className="md:w-1/2 text-[#333] space-y-6 flex flex-col items-center text-center">
@@ -265,6 +269,7 @@ const Home = () => {
           />
         </div>
       </div>
+      <Footer/>
     </>
   );
 };

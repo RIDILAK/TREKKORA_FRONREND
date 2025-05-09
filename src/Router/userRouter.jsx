@@ -12,16 +12,18 @@ import About from '../Modules/User/Pages/About.jsx';
 import GuidePage from '../Modules/User/Pages/Guide/GuidePage.jsx';
 import GuideDetails from '../Modules/User/Pages/Guide/GuideDetailsPage.jsx';
 import WishList from '../Modules/User/Pages/WishList/WishList.jsx';
+import Booking from '../Modules/User/Pages/Booking/Booking.jsx';
+
 
 const UserRouter = () => {
   const location = useLocation();
 
-  const hideLayoutRoutes = ['/register', '/signup', '/login'];
-  const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
+  // const hideLayoutRoutes = ['/register', '/signup', '/login'];
+  // const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
 
   return (
     <div>
-      {!shouldHideLayout && <Navbar />}
+      {/* {!shouldHideLayout && <Navbar />} */}
       <Routes>
         <Route path='/register' element={<Register />} />
         <Route path='/signup' element={<Signup />} />
@@ -35,8 +37,9 @@ const UserRouter = () => {
         <Route path='guide' element={<GuidePage />} />
         <Route path='guideDetails/:id' element={<GuideDetails/>}/>
         <Route path='wishList' element={<WishList/>}/>
+       <Route path='booking/:placeId' element={<Booking/>}/>
       </Routes>
-      {!shouldHideLayout && <Footer />}
+      {/* {!shouldHideLayout && <Footer />} */}
     </div>
   );
 };

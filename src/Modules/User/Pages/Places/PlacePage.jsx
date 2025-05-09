@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ImageViewer from '../../../../Components/ImageViewer';
 import { useWishList } from '../../Context.jsx/WishListContext';
+import Navbar from '../../LayOut/NavBar';
+import Footer from '../../LayOut/Footer';
 
 const PlacePage = () => {
   const [places, setPlaces] = useState([]);
@@ -44,7 +46,10 @@ const PlacePage = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-[#f4f7f5] text-gray-800 px-4 py-10">
+    
       <h1 className="text-3xl md:text-5xl font-bold text-center text-[#2F4F4F] mb-8">
         Let's Explore Together <span role="img" aria-label="travel">✈️</span>
       </h1>
@@ -113,6 +118,8 @@ const PlacePage = () => {
         <p className="text-center mt-10 text-gray-500 text-lg">No places found.</p>
       )}
     </div>
+    <Footer/>
+    </>
   );
 };
 

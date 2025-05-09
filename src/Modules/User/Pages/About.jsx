@@ -1,8 +1,11 @@
 import React from "react";
+import Navbar from "../LayOut/NavBar";
+import Footer from "../LayOut/Footer";
 
 const About = () => {
   return (
     <div className="w-full text-gray-800">
+      <Navbar/>   
       {/* Top Section - Images + Intro Content */}
       <div className="flex flex-col md:flex-row items-center justify-between px-8 md:px-20 py-16 gap-12">
         {/* Images */}
@@ -93,7 +96,9 @@ const About = () => {
           🚶‍♀️ Start Your Journey
         </button>
       </div>
+    <Footer/>
     </div>
+    
   );
 };
 
