@@ -54,7 +54,7 @@ const Navbar = () => {
 
   const handleProfileClick = () => {
     setShowMenu(false);
-    navigate('/profile');
+    navigate('/userprofile');
   };
 
   const toggleUserMenu = () => {
@@ -89,7 +89,7 @@ const Navbar = () => {
             <button onClick={() => handleIconClick('/notifications')}>
               <FaBell className="h-5 w-5 hover:text-white" />
             </button>
-            <button onClick={() => handleIconClick('/bookings')}>
+            <button onClick={() => handleIconClick('/userbooking')}>
               <FaCalendarCheck className="h-5 w-5 hover:text-white" />
             </button>
             <button onClick={() => handleIconClick('/wishlist')}>

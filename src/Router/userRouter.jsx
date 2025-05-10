@@ -13,6 +13,8 @@ import GuidePage from '../Modules/User/Pages/Guide/GuidePage.jsx';
 import GuideDetails from '../Modules/User/Pages/Guide/GuideDetailsPage.jsx';
 import WishList from '../Modules/User/Pages/WishList/WishList.jsx';
 import Booking from '../Modules/User/Pages/Booking/Booking.jsx';
+import UserBookings from '../Modules/User/Pages/Booking/UserBookings.jsx';
+import UserProfile from '../Modules/User/Pages/Profile/UserProfile.jsx';
 
 
 const UserRouter = () => {
@@ -38,6 +40,8 @@ const UserRouter = () => {
         <Route path='guideDetails/:id' element={<GuideDetails/>}/>
         <Route path='wishList' element={<WishList/>}/>
        <Route path='booking/:placeId' element={<Booking/>}/>
+       <Route path='userbooking'element={<UserBookings/>}/>
+       <Route path='userprofile'element={<UserProfile/>}/>
       </Routes>
       {/* {!shouldHideLayout && <Footer />} */}
     </div>
