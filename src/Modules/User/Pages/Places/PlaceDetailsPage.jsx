@@ -3,17 +3,38 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import ImageViewer from "../../../../Components/ImageViewer";
+import Navbar from "../../LayOut/NavBar";
 
 const PlaceDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [place, setPlace] = useState({});
+  const[ratings,setRatings ]=useState([]);
   const [weather, setWeather] = useState({});
 
   useEffect(() => {
     placeAdd();
     getWeather();
+    FetchRating();
   }, [id]);
+
+  const FetchRating = () => {
+  console.log("triggerssss");
+
+  axios
+    .get(`${import.meta.env.VITE_BASEURL}/api/Rating/Place`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      params: { PlaceId:id },
+    })
+    .then((res) => {
+      console.log(res.data.data); 
+      setRatings(res.data.data,"rates"); 
+    })
+    .catch((error) => console.error("Error in Fetching Rating:", error));
+};
+
 
   const placeAdd = () => {
     axios
@@ -58,6 +79,8 @@ const PlaceDetails = () => {
   
 
   return (
+    <>
+    <Navbar/>
     <div className="bg-gray-100 text-black min-h-screen flex flex-col justify-between">
       {/* Main Content */}
       <div className="flex-grow w-[700px]  pt-28 px-4 block m-auto justify-center">
@@ -105,6 +128,36 @@ const PlaceDetails = () => {
             <p className="text-lg mb-4">
               Wind Speed: <span className="text-black">{weather.windSpeed} km/h</span>
             </p>
+            {/* Rating Summary */}
+<div className="mt-6">
+  <h2 className="text-xl font-semibold text-third text-center mb-2">Rating ⭐</h2>
+  {ratings.length > 0 ? (
+    <>
+      {/* Average Rating */}
+      <p className="text-lg text-center mb-4 text-black font-medium">
+        Average Rating: {(
+          ratings.reduce((acc, item) => acc + item.ratingValue, 0) / ratings.length
+        ).toFixed(1)}{" "}
+        / 5 ({ratings.length} reviews)
+      </p>
+
+      {/* Individual Reviews */}
+      <div className="space-y-4">
+        {ratings.map((r) => (
+          <div key={r.id} className="p-4 bg-white rounded-md shadow">
+            <p className="text-base text-gray-800">
+              <span className="font-semibold">Rating:</span> {r.ratingValue} / 5
+            </p>
+            <p className="text-gray-700 italic">"{r.review}"</p>
+          </div>
+        ))}
+      </div>
+    </>
+  ) : (
+    <p className="text-gray-600 italic text-center">No ratings yet</p>
+  )}
+</div>
+
 
             {/* Book Button placed below climate */}
             <div className="flex justify-center mt-4">
@@ -119,6 +172,7 @@ const PlaceDetails = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

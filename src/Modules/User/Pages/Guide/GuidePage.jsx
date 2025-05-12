@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../LayOut/NavBar";
 
 const GuidePage = () => {
   const [guides, setGuides] = useState([]);
@@ -24,6 +25,8 @@ const GuidePage = () => {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="px-6 md:px-20 py-16">
       <h2 className="text-3xl font-bold mb-8 text-center text-primary">
         Meet Our Expert Guides
@@ -80,6 +83,7 @@ const GuidePage = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 

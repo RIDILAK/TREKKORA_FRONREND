@@ -61,7 +61,7 @@ const Signup = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        setMessage("Registration successful");
+        setMessage("Registration successfull");
         setFormData({
           fullName: '',
           email: '',

@@ -8,14 +8,31 @@ import {
   FaEnvelope,
   FaUserTie,
 } from "react-icons/fa";
+import Navbar from "../../LayOut/NavBar";
 
 const GuideDetails = () => {
   const { id } = useParams();
   const [guide, setGuide] = useState();
+  const[Rating,setRating]=useState([]);
 
   useEffect(() => {
     fetchGuideDetails();
+    handleGuideRatings();
   }, [id]);
+
+  const handleGuideRatings=()=>{
+    axios
+    .get(`${import.meta.env.VITE_BASEURL}/api/Rating/Guide`,{
+      headers:{
+        Authorization:`Bearer ${localStorage.getItem('token')}`
+      },params:{
+        GuidId:id
+      }
+    })
+    .then((res)=>setRating(res.data.data))
+    .catch((error)=>console.error("Error in rating",error));
+    
+  }
 
   const fetchGuideDetails =async () => {
     axios
@@ -42,7 +59,10 @@ const GuideDetails = () => {
     );
   } else {
     return (
+      <>
+      <Navbar/>
       <div className="bg-gray-100 min-h-screen pt-24 px-4 text-black">
+        
         <div className="max-w-4xl mx-auto bg-white shadow-md rounded-xl p-8">
           {/* Profile Image */}
           <div className="flex justify-center mb-6">
@@ -101,7 +121,19 @@ const GuideDetails = () => {
             <p>{guide.getGuideProfileDto.whyTravelWithMe}</p>
           </div>
         </div>
+        {Rating.length > 0 && (
+  <div className="mt-6 bg-white p-6 rounded-xl shadow-md">
+    <h2 className="text-2xl font-bold text-third mb-4">⭐ Ratings & Reviews</h2>
+    {Rating.map((rate) => (
+      <div key={rate.id} className="border-b border-gray-200 pb-4 mb-4">
+        <p className="text-lg font-semibold text-primary">Rating: {rate.ratingValue} / 5</p>
+        <p className="text-gray-700 italic">"{rate.review}"</p>
       </div>
+    ))}
+  </div>
+)}
+      </div>
+      </>
     );
   }
 };

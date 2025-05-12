@@ -41,7 +41,7 @@ const UserRouter = () => {
         <Route path='wishList' element={<WishList/>}/>
        <Route path='booking/:placeId' element={<Booking/>}/>
        <Route path='userbooking'element={<UserBookings/>}/>
-       <Route path='userprofile'element={<UserProfile/>}/>
+       <Route path='UserProfile'element={<UserProfile/>}/>
       </Routes>
       {/* {!shouldHideLayout && <Footer />} */}
     </div>

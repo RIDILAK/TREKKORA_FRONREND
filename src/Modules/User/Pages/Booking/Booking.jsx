@@ -4,6 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import Navbar from "../../LayOut/NavBar";
 
 
 const calendarStyles = `
@@ -139,17 +140,25 @@ const Booking = () => {
         }
       );
 
-      toast.success(res.data.message);
+      // toast.success("Request Send");
+      if(res.status===200){
+        toast.success("Request Send")
+      }
       setRequestSent(false);
       setSelectedGuide(null);
       navigate('/userbooking');
     } catch (err) {
-      console.error("Booking failed:", err);
+      console.error("Booking failed:", err)
+      if(err.response && err.response.status===400){
+        toast.error("you must be book atleast minimum days for the trip")
+      };
       toast.error("Booking Failed")
     }
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="bg-gray-50 min-h-screen">
       <style>{calendarStyles}</style>
       
@@ -328,6 +337,7 @@ const Booking = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
