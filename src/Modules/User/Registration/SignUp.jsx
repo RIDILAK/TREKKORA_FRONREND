@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -61,7 +62,8 @@ const Signup = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        setMessage("Registration successfull");
+        // setMessage("Registration successfull");
+        toast.success("Registration Succesfull");
         setFormData({
           fullName: '',
           email: '',

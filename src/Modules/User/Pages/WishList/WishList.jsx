@@ -9,7 +9,7 @@ const WishList = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Header Section */}
-      <div className="bg-[#1E3D2F] py-8 px-4 shadow-md">
+      <div className="bg-primary py-8 px-4 shadow-md">
         <div className="container mx-auto">
           <h1 className="text-3xl font-bold text-white text-center">
             My Wishlist
@@ -45,9 +45,9 @@ const WishList = () => {
                 <div className="p-4">
                   <div className="flex justify-between items-center mb-3">
                     <p className="text-[#1E3D2F] font-bold text-lg">₹{item.price}</p>
-                    <span className="bg-[#9AB3A5] text-white text-xs px-2 py-1 rounded-full">
+                    {/* <span className="bg-[#9AB3A5] text-white text-xs px-2 py-1 rounded-full">
                       Destination
-                    </span>
+                    </span> */}
                   </div>
                   
                   <div className="flex items-center justify-between">

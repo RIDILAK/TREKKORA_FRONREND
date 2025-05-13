@@ -18,12 +18,19 @@ function Login() {
       })
       .then((res) => {
         if (res.status === 200) {
+          const token=res.data.data;
+          const role=res.data.message;
             console.log(res);
             
           localStorage.setItem("token", res.data.data); 
           
 toast.success("Login Successfull!")
-navigate('/')
+// navigate('/')
+if(role==='User'){
+  navigate("/")
+}else if(role==='Guide'){
+  navigate("/guidehome")
+}
         //   Swal.fire({
         //     icon: "success",
         //     text: "Login successful!",
