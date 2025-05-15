@@ -80,7 +80,7 @@ const GuideNavbar = () => {
           {/* Links */}
           <div className="flex space-x-6 font-medium">
             <Link to="/" className="hover:text-white">Home</Link>
-            <Link to="/applicants" className="hover:text-white">Applicants</Link>
+            <Link to="/TripRequests" className="hover:text-white">Applicants</Link>
             <Link to="/about" className="hover:text-white">About</Link>
           </div>
 
@@ -92,7 +92,7 @@ const GuideNavbar = () => {
             <button onClick={() => handleIconClick('/notifications')}>
               <FaBell className="h-5 w-5 hover:text-white" />
             </button>
-            <button onClick={() => handleIconClick('/upcoming-requests')}>
+            <button onClick={() => handleIconClick('/upcomingRequests')}>
               <FaCalendarCheck className="h-5 w-5 hover:text-white" />
             </button>
 

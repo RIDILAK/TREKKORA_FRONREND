@@ -15,6 +15,8 @@ import WishList from '../Modules/User/Pages/WishList/WishList.jsx';
 import Booking from '../Modules/User/Pages/Booking/Booking.jsx';
 import UserBookings from '../Modules/User/Pages/Booking/UserBookings.jsx';
 import UserProfile from '../Modules/User/Pages/Profile/UserProfile.jsx';
+// import GuideProfile from '../Modules/Guide/Pages/Profile/GuideProfile.jsx';
+// import UpcomingRequests from '../Modules/Guide/Pages/UpcomingRequests.jsx';
 
 
 const UserRouter = () => {
@@ -42,6 +44,8 @@ const UserRouter = () => {
        <Route path='booking/:placeId' element={<Booking/>}/>
        <Route path='userbooking'element={<UserBookings/>}/>
        <Route path='UserProfile'element={<UserProfile/>}/>
+       {/* <Route path='/guideprofile' element={<GuideProfile />} /> */}
+      
       </Routes>
       {/* {!shouldHideLayout && <Footer />} */}
     </div>

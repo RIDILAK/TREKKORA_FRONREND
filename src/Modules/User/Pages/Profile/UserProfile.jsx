@@ -242,7 +242,7 @@ const UserProfile = () => {
                                 </h4>
                                 <span
                                   className={`text-sm px-2 py-1 rounded-full ${
-                                    item.status === "Approved"
+                                    item.status === "Completed"
                                       ? "bg-green-100 text-green-800"
                                       : "bg-yellow-100 text-yellow-800"
                                   }`}
@@ -270,7 +270,7 @@ const UserProfile = () => {
                             </div>
                           </div>
 
-                          {item.status === "Approved" && (
+                          {item.status === "Completed" && (
                             <div className="mt-4 border-t pt-4">
                               <h4 className="text-md font-semibold text-[#1E3D2F] mb-2">
                                 Rate your experience:
@@ -353,7 +353,7 @@ const UserProfile = () => {
                             </div>
                           )}
 
-                          {item.status === "Approved" && (
+                          {item.status === "Completed" && (
                             <div className="mt-6 border-t pt-4">
                               <h4 className="text-md font-semibold text-[#1E3D2F] mb-2">
                                 Rate your guide:

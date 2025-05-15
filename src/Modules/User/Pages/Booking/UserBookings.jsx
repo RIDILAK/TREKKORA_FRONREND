@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import toast from "react-hot-toast";
+
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
-  const{bookingId}=useParams();
+  const [deletingId, setDeletingId] = useState(null);
   const { userId } = useParams();
 
   useEffect(() => {
-    // if (!userId) return;
-
     axios
       .get(`${import.meta.env.VITE_BASEURL}/api/Booking/User`, {
         headers: {
@@ -23,27 +22,43 @@ const UserBookings = () => {
       .catch((err) => {
         console.error("Error fetching bookings", err);
       });
-  }, []);
+  }, [userId]);
 
-  const handleDelete=(bookingId)=>{
+  const handleDelete = async (bookingId) => {
+    setDeletingId(bookingId);
     try {
-         axios
-    .delete(`${import.meta.env.VITE_BASEURL}/api/Booking/Delete`,{
-        headers:{
-            Authorization:`Bearer ${localStorage.getItem("token")}`,
-        },params:{
-            id:bookingId
-        }
-        
-       
-    })
-  toast.success("Booking Deleted Succesfully")
-        
-    } catch (error) {
-       console.error("Error in deleting product",error);
-        
+      await axios.delete(`${import.meta.env.VITE_BASEURL}/api/Booking/Delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params: { id: bookingId },
+      });
+
+      // Soft-delete update in UI
+      setBookings((prev) =>
+        prev.map((b) =>
+          b.bookingId === bookingId ? { ...b, isDeleted: true } : b
+        )
+      );
+
+      toast.success("Booking Cancelled");
+  } catch (error) {
+    const status = error.response?.status;
+
+    if (status === 409) {
+      toast.error("You have already cancelled the booking");
+    } else if (status === 403) {
+      toast.error("Booking can only be deleted if it's Approved or Pending.");
+    } else if (status === 400) {
+      toast.error("Booking not found");
+    } else {
+      console.error("Error in deleting booking", error);
+      toast.error("Error in cancelling booking");
     }
-}
+  } finally {
+    setDeletingId(null);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-fourth">
@@ -78,14 +93,29 @@ const UserBookings = () => {
                   <p><strong>End Date:</strong> {new Date(item.endDate).toLocaleDateString()}</p>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-4 flex items-center gap-4">
                   <Link
                     to={`/PlaceDetails/${item.placeId}`}
                     className="text-blue-600 hover:underline text-sm"
                   >
                     View Place Details
                   </Link>
-                  <button onClick={()=>handleDelete(item.bookingId)}>Cancel Booking</button>
+
+                  {item.isDeleted ? (
+                    <span className="text-red-600 font-semibold text-sm">Cancelled</span>
+                  ) : (
+                    <button
+                      onClick={() => handleDelete(item.bookingId)}
+                      disabled={deletingId === item.bookingId}
+                      className={`text-sm font-medium ${
+                        deletingId === item.bookingId
+                          ? "text-gray-400 cursor-not-allowed"
+                          : "text-red-600 hover:text-red-800"
+                      }`}
+                    >
+                      {deletingId === item.bookingId ? "Cancelling..." : "Cancel Booking"}
+                    </button>
+                  )}
                 </div>
               </li>
             ))}
