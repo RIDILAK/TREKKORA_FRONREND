@@ -39,7 +39,7 @@ const UserProfile = () => {
       })
       .then((res) => {
         setBooking(res.data.data);
-        console.log(res, "cfvgbhn");
+        console.log(res.data.data, "cfvgbhn");
       })
       .catch((err) => {
         console.error("Error fetching bookings", err);
@@ -231,7 +231,7 @@ const UserProfile = () => {
                         >
                           <div className="flex gap-5 mb-4">
                             <ImageViewer
-                              base64Data={item.imageUrl}
+                              base64Data={item.placeImage}
                               alt={item.placeName}
                               className="w-24 h-24 rounded-lg object-cover border border-gray-200"
                             />

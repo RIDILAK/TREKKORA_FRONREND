@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import GuideNavbar from '../LayOut/GuideNavbar';
+import GuideFooter from '../LayOut/GuideFooter';
 
 const Requests = () => {
   const [requests, setRequests] = useState([]);
@@ -86,6 +88,8 @@ const Requests = () => {
   };
 
   return (
+    <>
+    <GuideNavbar/>
     <div className="min-h-screen bg-fourth py-10 px-4">
       <h1 className="text-3xl font-bold text-center text-primary mb-6">
         Booking Requests
@@ -174,7 +178,10 @@ const Requests = () => {
           No {activeTab.toLowerCase()} requests found.
         </p>
       )}
+     
     </div>
+     <GuideFooter/>
+    </>
   );
 };
 

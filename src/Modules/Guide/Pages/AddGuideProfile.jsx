@@ -97,11 +97,12 @@ for (let pair of formData.entries()) {
 
   if (response.status === 200 || response.status === 201) {
     toast.success("Profile uploaded successfully");
-    alert("Your Profile Uploaded succesfully")
+    // alert("Your Profile Uploaded succesfully")
     // navigate('/guide/dashboard');
   }
 } catch (error) {
   console.error('Error:', error);
+  toast.error('You have already upload your profile')
   setError('You have already uplaod your profile');
 
  if (error.response) {
@@ -126,55 +127,128 @@ for (let pair of formData.entries()) {
   };
 
   return (
+
+  <>
     <div className="min-h-screen bg-fourth p-8">
-      <h1 className="text-3xl font-bold text-primary mb-4 text-center">Add Guide Profile</h1>
-      <button onClick={handleBack} className="text-primary text-xl font-semibold mb-6">⇦</button>
-
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-third p-6 rounded-lg shadow-lg space-y-4">
-        <input name="mobile" type="text" placeholder="Mobile" value={profile.mobile} onChange={handleChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <select value={PlaceId} onChange={(e) => {
-          console.log(e.target.value,"edrfgh");
-          
-          setPlaceId(e.target.value)}} className="w-full border border-primary rounded-md p-2">
-          <option value="">Select Place</option>
-          {places.map((place, i) => (
-            <option key={i} value={place.id}>{place.placeName}</option>
-          ))}
-        </select>
-
-        <input name="experience" type="text" placeholder="Experience" value={profile.experience} onChange={handleChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <input name="languages" type="text" placeholder="languages" value={profile.languages} onChange={handleChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <textarea name="areasCovered" placeholder="Areas Covered" value={profile.areasCovered} onChange={handleChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <textarea name="bio" placeholder="Bio" value={profile.bio} onChange={handleChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <textarea name="whyTravelWithMe" placeholder="Why Travel With Me" value={profile.whyTravelWithMe} onChange={handleChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <input type="file" accept="image/*" onChange={handleProfileImageChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        <input type="file" multiple onChange={handleCertificatesChange}
-          className="w-full border border-primary rounded-md p-2" />
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        <div className="flex justify-end">
-          <button type="submit" className="bg-primary text-white px-6 py-2 rounded-md hover:bg-secondary transition">
-            Submit Profile
+      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-10">
+        <div className="flex justify-between items-center mb-4">
+          <button onClick={handleBack} className="text-primary text-2xl font-semibold hover:text-secondary transition">
+            ⇦
           </button>
+          <h1 className="text-3xl font-bold text-primary text-center w-full -ml-6">Add Guide Profile</h1>
         </div>
-      </form>
+
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-2xl mx-auto bg-third p-8 rounded-xl shadow-md space-y-6"
+        >
+          <input
+            name="mobile"
+            type="text"
+            placeholder="Mobile"
+            value={profile.mobile}
+            onChange={handleChange}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          <select
+            value={PlaceId}
+            onChange={(e) => {
+              console.log(e.target.value, 'edrfgh');
+              setPlaceId(e.target.value);
+            }}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="">Select Place</option>
+            {places.map((place, i) => (
+              <option key={i} value={place.id}>
+                {place.placeName}
+              </option>
+            ))}
+          </select>
+
+          <input
+            name="experience"
+            type="text"
+            placeholder="Experience"
+            value={profile.experience}
+            onChange={handleChange}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          <input
+            name="languages"
+            type="text"
+            placeholder="Languages"
+            value={profile.languages}
+            onChange={handleChange}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          <textarea
+            name="areasCovered"
+            placeholder="Areas Covered"
+            value={profile.areasCovered}
+            onChange={handleChange}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+            rows={3}
+          />
+
+          <textarea
+            name="bio"
+            placeholder="Bio"
+            value={profile.bio}
+            onChange={handleChange}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+            rows={3}
+          />
+
+          <textarea
+            name="whyTravelWithMe"
+            placeholder="Why Travel With Me"
+            value={profile.whyTravelWithMe}
+            onChange={handleChange}
+            className="w-full border border-primary rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+            rows={3}
+          />
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Upload Profile Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleProfileImageChange}
+              className="w-full border border-primary rounded-lg p-2 file:mr-3 file:py-1 file:px-4 file:rounded-full file:border-0 file:bg-primary file:text-white hover:file:bg-secondary transition"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-1">Upload Certificates</label>
+            <input
+              type="file"
+              multiple
+              onChange={handleCertificatesChange}
+              className="w-full border border-primary rounded-lg p-2 file:mr-3 file:py-1 file:px-4 file:rounded-full file:border-0 file:bg-primary file:text-white hover:file:bg-secondary transition"
+            />
+          </div>
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-secondary transition duration-300 shadow-md"
+            >
+              Submit Profile
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  );
+  </>
+);
+
+
 }
 
 export default AddGuideProfile;

@@ -79,9 +79,9 @@ const GuideNavbar = () => {
 
           {/* Links */}
           <div className="flex space-x-6 font-medium">
-            <Link to="/" className="hover:text-white">Home</Link>
+            <Link to="/guidehome" className="hover:text-white">Home</Link>
             <Link to="/TripRequests" className="hover:text-white">Applicants</Link>
-            <Link to="/about" className="hover:text-white">About</Link>
+            <Link to="/guideabout" className="hover:text-white">About</Link>
           </div>
 
           {/* Icons */}

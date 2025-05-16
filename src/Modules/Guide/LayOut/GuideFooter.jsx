@@ -21,7 +21,7 @@ const GuideFooter = () => {
           <ul className="space-y-2 text-sm">
             <li><Link to="/guidehome" className="hover:underline">Home</Link></li>
             <li><Link to="/applicants" className="hover:underline">Applicants</Link></li>
-            <li><Link to="/Guideabout" className="hover:underline">About Us</Link></li>
+            <li><Link to="/guideabout" className="hover:underline">About Us</Link></li>
             <li><Link to="/contact" className="hover:underline">Contact</Link></li>
           </ul>
         </div>
