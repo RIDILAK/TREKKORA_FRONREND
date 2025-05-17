@@ -34,7 +34,9 @@ const Requests = () => {
         },
       })
       .then((res) => {
-        setRequests(res.data.data);
+        setRequests(res.data.data)
+        console.log(res.data.data,"bookings");
+        ;
       })
       .catch((err) => {
         console.error(`Error fetching ${status.toLowerCase()} requests`, err);
@@ -127,7 +129,7 @@ const Requests = () => {
 
               <div className="text-gray-700 text-sm space-y-1">
                 <p><strong>Number of People:</strong> {req.numberOfPeople}</p>
-                <p><strong>Total Price:</strong> ₹{req.totalPrice}</p>
+                <p><strong>Your Salary:</strong> ₹{req.guideSalary}</p>
                 <p><strong>Booking Date:</strong> {new Date(req.bookingDate).toLocaleDateString()}</p>
                 <p><strong>Start Date:</strong> {new Date(req.startDate).toLocaleDateString()}</p>
                 <p><strong>End Date:</strong> {new Date(req.endDate).toLocaleDateString()}</p>

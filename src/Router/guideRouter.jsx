@@ -6,6 +6,7 @@ import Requests from '../Modules/Guide/Pages/Requests';
 import UpcomingRequests from '../Modules/Guide/Pages/UpcomingRequests';
 import GuideProfile from '../Modules/Guide/Pages/Profile/GuideProfile';
 import AboutGuide from '../Modules/Guide/Pages/AboutGuide';
+import GuideRevenue from '../Modules/Guide/Pages/Profile/guideRevenue';
 
 const guideRouter = () => {
   return (
@@ -17,6 +18,8 @@ const guideRouter = () => {
          <Route path='/upcomingRequests'element={<UpcomingRequests/>}/>
          <Route path='/guideprofile' element={<GuideProfile/>}/>
          <Route path='guideabout' element={<AboutGuide/>}/>
+         <Route path='guideRevenue' element={<GuideRevenue/>}/>
+         
 
       </Routes>
     </div>

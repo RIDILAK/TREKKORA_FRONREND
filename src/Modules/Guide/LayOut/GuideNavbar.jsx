@@ -120,20 +120,30 @@ const GuideNavbar = () => {
                       Login
                     </button>
                   ) : (
-                    <>
-                      <button
-                        onClick={handleProfileClick}
-                        className="block w-full px-4 py-2 text-left hover:bg-[#D9D9D9]"
-                      >
-                        View Profile
-                      </button>
-                      <button
-                        onClick={handleSignOut}
-                        className="block w-full px-4 py-2 text-left hover:bg-[#D9D9D9]"
-                      >
-                        Sign Out
-                      </button>
-                    </>
+                  <>
+  <button
+    onClick={handleProfileClick}
+    className="block w-full px-4 py-2 text-left hover:bg-[#D9D9D9]"
+  >
+    View Profile
+  </button>
+  <button
+    onClick={() => {
+      setShowMenu(false);
+      navigate('/guideRevenue');
+    }}
+    className="block w-full px-4 py-2 text-left hover:bg-[#D9D9D9]"
+  >
+    Revenue
+  </button>
+  <button
+    onClick={handleSignOut}
+    className="block w-full px-4 py-2 text-left hover:bg-[#D9D9D9]"
+  >
+    Sign Out
+  </button>
+</>
+
                   )}
                 </div>
               )}

@@ -148,13 +148,28 @@ const Booking = () => {
       setSelectedGuide(null);
       navigate('/userbooking');
     } catch (err) {
-      console.error("Booking failed:", err)
-      if(err.response && err.response.status===400){
-        toast.error("you must be book atleast minimum days for the trip")
-      };
-      toast.error("Booking Failed")
+  console.error("Booking failed:", err);
+
+  
+  if (err.response) {
+   
+    if (err.response.status === 405) {
+      toast.error("You can book a maximum of 10 people per trip.");
     }
-  };
+   
+    else if (err.response.status === 400) {
+      toast.error("You must book at least the minimum days for the trip.");
+    }
+    
+    else {
+      toast.error("Booking failed. Please try again.");
+    }
+  } else {
+   
+    toast.error("An error occurred. Please check your connection and try again.");
+  }
+}}
+
 
   return (
     <>

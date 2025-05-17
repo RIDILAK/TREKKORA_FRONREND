@@ -34,7 +34,7 @@ const UserBookings = () => {
         params: { id: bookingId },
       });
 
-      // Soft-delete update in UI
+      
       setBookings((prev) =>
         prev.map((b) =>
           b.bookingId === bookingId ? { ...b, isDeleted: true } : b

@@ -39,7 +39,7 @@ const Home = () => {
   const fetchGuides = async () => {
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_BASEURL}/api/GuidProfile/All`
+        `${import.meta.env.VITE_BASEURL}/api/GuidProfile/AllAvaailableGuides`
       );
       setGuides(res.data.data);
     } catch (error) {
