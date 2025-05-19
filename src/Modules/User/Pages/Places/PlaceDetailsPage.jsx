@@ -128,6 +128,14 @@ const PlaceDetails = () => {
             <p className="text-lg mb-4">
               Wind Speed: <span className="text-black">{weather.windSpeed} km/h</span>
             </p>
+             <div className="flex justify-center mt-4">
+              <button
+                onClick={() => navigate(`/booking/${place.id}`)}
+                className="px-8 py-3 bg-third text-white font-semibold rounded-md shadow hover:bg-secondary hover:shadow-lg transform hover:scale-105 transition duration-300"
+              >
+                Book Now
+              </button>
+            </div>
             {/* Rating Summary */}
 <div className="mt-6">
   <h2 className="text-xl font-semibold text-third text-center mb-2">Rating ⭐</h2>
@@ -160,14 +168,7 @@ const PlaceDetails = () => {
 
 
             {/* Book Button placed below climate */}
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={() => navigate(`/booking/${place.id}`)}
-                className="px-8 py-3 bg-third text-white font-semibold rounded-md shadow hover:bg-secondary hover:shadow-lg transform hover:scale-105 transition duration-300"
-              >
-                Book Now
-              </button>
-            </div>
+           
           </div>
         </div>
       </div>

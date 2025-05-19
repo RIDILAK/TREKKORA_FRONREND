@@ -5,12 +5,12 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { name: "Dashboard", icon: "📊", path: "/admin/dashboard" },
-    { name: "Users", icon: "👤", path: "/admin/users" },
-    { name: "Requests", icon: "📥", path: "/admin/requests" },
-    { name: "Guides", icon: "🧭", path: "/admin/guides" },
-    { name: "Places", icon: "🗺️", path: "/admin/places" },
-    {name:"Bookings",icon:"🧾",path:"/admin/bookings"}
+    { name: "Dashboard", icon: "📊", path: "/dashboard" },
+    { name: "Users", icon: "👤", path: "/userlist" },
+    { name: "Requests", icon: "📥", path: "/guideRequests" },
+    { name: "Guides", icon: "🧭", path: "/guideList" },
+    { name: "Places", icon: "🗺️", path: "/placelist" }
+
   ];
 
   const handleSignOut = () => {

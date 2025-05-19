@@ -17,28 +17,22 @@ function Login() {
         password,
       })
       .then((res) => {
-        if (res.status === 200) {
-          const token=res.data.data;
-          const role=res.data.message;
-            console.log(res);
-            
-          localStorage.setItem("token", res.data.data); 
-          
-toast.success("Login Successfull!")
-// navigate('/')
-if(role==='User'){
-  navigate("/")
-}else if(role==='Guide'){
-  navigate("/guidehome")
-}
-        //   Swal.fire({
-        //     icon: "success",
-        //     text: "Login successful!",
-        //   });
+      if (res.status === 200) {
+        const token = res.data.data;
+        const role = res.data.message;
 
-        //   navigate("/"); // redirect after login
+        localStorage.setItem("token", token);
+        toast.success("Login Successful!");
+
+        if (email === "admin@gmail.com") {
+          navigate("/dashboard");
+        } else if (role === "User") {
+          navigate("/");
+        } else if (role === "Guide") {
+          navigate("/guidehome");
         }
-      })
+      }
+    })
       .catch((err) => {
         console.error(err);
         // Swal.fire({

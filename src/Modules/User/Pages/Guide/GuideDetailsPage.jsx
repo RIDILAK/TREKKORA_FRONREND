@@ -36,7 +36,7 @@ const GuideDetails = () => {
 
   const fetchGuideDetails =async () => {
     axios
-      .get(`${import.meta.env.VITE_BASEURL}/api/GuidProfile/All`, {
+      .get(`${import.meta.env.VITE_BASEURL}/api/GuidProfile/AllAvaailableGuides`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
