@@ -33,8 +33,16 @@ function Login() {
         }
       }
     })
-      .catch((err) => {
-        console.error(err);
+    .catch((err) => {
+      console.error("Login Error:", err);
+
+      if (err.response?.status === 403) {
+        toast.error("You are blocked by Admin");
+      } else if (err.response?.status === 400) {
+        toast.error("Invalid email or password");
+      } else {
+        toast.error("Something went wrong");
+      }
         // Swal.fire({
         //   icon: "error",
         //   text: err.response?.data?.message || "Invalid email or password",

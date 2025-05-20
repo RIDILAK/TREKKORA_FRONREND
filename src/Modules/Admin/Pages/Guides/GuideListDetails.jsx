@@ -84,7 +84,7 @@ const GuideListDetails = () => {
   const profile = guide.getGuideProfileDto;
 
   return (
-    <div className="flex bg-secondary min-h-screen">
+    <div className="flex ml-64 p-6 bg-secondary min-h-screen">
       <SideBar />
       <div className="flex-1 p-6">
         <div className="flex justify-between items-center mb-4">

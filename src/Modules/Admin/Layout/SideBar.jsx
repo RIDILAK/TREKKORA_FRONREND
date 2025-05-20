@@ -9,7 +9,8 @@ const SideBar = () => {
     { name: "Users", icon: "👤", path: "/userlist" },
     { name: "Requests", icon: "📥", path: "/guideRequests" },
     { name: "Guides", icon: "🧭", path: "/guideList" },
-    { name: "Places", icon: "🗺️", path: "/placelist" }
+    { name: "Places", icon: "🗺️", path: "/placelist" },
+    {name: "Ratings",icon:"⭐" ,path:"/rating"}
 
   ];
 
@@ -19,8 +20,9 @@ const SideBar = () => {
   };
 
   return (
-    <div className="h-screen w-64 bg-primary text-white flex flex-col shadow-lg">
-      <div className="text-2xl font-bold p-6 text-center border-b border-fourth">
+   <div className="h-screen w-64 fixed top-0 left-0 bg-primary text-white flex flex-col shadow-lg z-50">
+
+      <div className="text-2xl font-bold p-6 sticky text-center border-b border-fourth">
         Admin Panel
       </div>
       <nav className="flex-1 p-4 space-y-2">

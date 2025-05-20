@@ -92,12 +92,12 @@ const PlaceDetails = () => {
             />
 
             
-            <button
+            {/* <button
               onClick={() => handleAddToWishlist(place.id)}
               className="absolute top-3 right-3 text-2xl text-primary bg-white p-2 rounded-full shadow-md hover:bg-secondary hover:text-white duration-200"
             >
               <FaHeart />
-            </button>
+            </button> */}
           </div>
 
           {/* Details */}

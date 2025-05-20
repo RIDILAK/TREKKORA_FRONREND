@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SideBar from "../../Layout/SideBar";
 import ImageViewer from "@/Components/ImageViewer";
+import { useNavigate } from "react-router-dom";
 
 const PlacesList = () => {
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const navigate=useNavigate();
 
   useEffect(() => {
     fetchPlaces();
@@ -24,6 +26,8 @@ const PlacesList = () => {
         }
       );
       setPlaces(response.data.data);
+      console.log(response.data.data,"datass");
+      
     } catch (error) {
       console.error("Error fetching places:", error);
     } finally {
@@ -44,13 +48,14 @@ const PlacesList = () => {
   }
 
   return (
-    <div className="flex bg-secondary min-h-screen">
+    <div className="flex ml-64 p-6 bg-secondary min-h-screen">
       <SideBar />
 
       <div className="flex-1 p-6">
         <h2 className="text-3xl font-bold text-third mb-6">Places List</h2>
-
+   <button onClick={()=>navigate('/addplace')} className="bg-primary h-[50px] w-[100px]">Add New Place</button>
         <div className="overflow-x-auto bg-white shadow-md rounded-xl">
+       
           <table className="min-w-full table-auto border-collapse">
             <thead className="bg-primary text-black">
               <tr>
@@ -63,7 +68,7 @@ const PlacesList = () => {
             <tbody className="text-black">
               {places.map((place, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
-                  <td className="py-3 px-4">
+                  <td className="py-3  px-4">
                     <ImageViewer
                       base64Data={place.imageUrl}
                       alt={place.placeName}
@@ -78,12 +83,16 @@ const PlacesList = () => {
                   </td>
                   <td className="py-3 px-4">₹{place.price}</td>
                   <td className="py-3 px-4 text-center">
-                    <button
+                    {/* <button
                       onClick={() => handleViewMore(place)}
                       className="bg-primary text-white px-3 py-1 rounded hover:bg-opacity-80"
                     >
                       View More
-                    </button>
+                    </button> */}
+                   <button onClick={() => navigate(`/placelistdetails/${place.id}`)}>
+  View More
+</button>
+
                   </td>
                 </tr>
               ))}

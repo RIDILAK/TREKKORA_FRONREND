@@ -17,10 +17,11 @@ const UserBookings = () => {
         params: { userId },
       })
       .then((res) => {
-        setBookings(res.data.data);
+        setBookings(res.data.data || []);
       })
       .catch((err) => {
         console.error("Error fetching bookings", err);
+        toast.error("Failed to load bookings");
       });
   }, [userId]);
 
@@ -34,7 +35,7 @@ const UserBookings = () => {
         params: { id: bookingId },
       });
 
-      
+      // Optimistically update booking as cancelled
       setBookings((prev) =>
         prev.map((b) =>
           b.bookingId === bookingId ? { ...b, isDeleted: true } : b
@@ -42,27 +43,25 @@ const UserBookings = () => {
       );
 
       toast.success("Booking Cancelled");
-  } catch (error) {
-    const status = error.response?.status;
-
-    if (status === 409) {
-      toast.error("You have already cancelled the booking");
-    } else if (status === 403) {
-      toast.error("Booking can only be deleted if it's Approved or Pending.");
-    } else if (status === 400) {
-      toast.error("Booking not found");
-    } else {
-      console.error("Error in deleting booking", error);
-      toast.error("Error in cancelling booking");
-    }
-  } finally {
-    setDeletingId(null);
+    } catch (error) {
+      const status = error.response?.status;
+      if (status === 409) {
+        toast.error("You have already cancelled the booking");
+      } else if (status === 403) {
+        toast.error("Booking can only be cancelled if it's Approved or Pending.");
+      } else if (status === 400) {
+        toast.error("Booking not found");
+      } else {
+        toast.error("Error in cancelling booking");
+      }
+    } finally {
+      setDeletingId(null);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-fourth">
-      <div className="container mx-auto py-8 px-4">
+    <div className="min-h-screen bg-fourth py-8 px-4">
+      <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-primary text-center mb-6">
           Your Bookings
         </h1>
@@ -70,13 +69,10 @@ const UserBookings = () => {
         {bookings?.length > 0 ? (
           <ul className="space-y-6">
             {bookings.map((item) => (
-              <li
-                key={item.bookingId}
-                className="bg-white shadow-lg rounded-lg p-6"
-              >
+              <li key={item.bookingId} className="bg-white shadow-lg rounded-lg p-6">
                 <div className="mb-2">
                   <h2 className="text-xl font-semibold text-primary">
-                    {item.placeName}
+                    {item.placeName?.trim()}
                   </h2>
                   <p className="text-sm text-gray-600">
                     Booking ID: {item.bookingId}

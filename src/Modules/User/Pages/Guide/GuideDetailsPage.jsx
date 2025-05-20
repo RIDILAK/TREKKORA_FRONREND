@@ -12,6 +12,8 @@ import Navbar from "../../LayOut/NavBar";
 
 const GuideDetails = () => {
   const { id } = useParams();
+  console.log(id,'id');
+  
   const [guide, setGuide] = useState();
   const[Rating,setRating]=useState([]);
 
@@ -36,15 +38,16 @@ const GuideDetails = () => {
 
   const fetchGuideDetails =async () => {
     axios
-      .get(`${import.meta.env.VITE_BASEURL}/api/GuidProfile/AllAvaailableGuides`, {
+      .get(`${import.meta.env.VITE_BASEURL}/api/GuidProfile/GetById`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         params: { id: id },
       })
       .then((res) => {
-        setGuide(res.data.data[0]);
-        console.log(res.data.data, "dtas");
+        
+        setGuide(res.data.data);
+        console.log(res.data, "dtas");
       })
       .catch((err) => {
         console.error("Error fetching guide details:", err);

@@ -72,11 +72,8 @@ const UserProfile = () => {
           },
         }));
         console.log("Place Rating submitted successfully", res.data.data);
-        if (res.status === 200) {
-          toast.success("Rating Submitted");
-        }
+        toast.success("Rating Submitted");
       })
-
       .catch((err) => {
         console.error("Error in rating Place", err);
         if (err.response && err.response.status === 400) {
@@ -101,25 +98,22 @@ const UserProfile = () => {
         }
       )
       .then((res) => {
-  setRateGuide((prev) => ({
-    ...prev,
-    [guideId]: {
-      ...prev[guideId],
-      submitted: true,
-    },
-  }));
-  console.log("Guide Rating submitted Successfully", res.data.data);
-  if (res.success === 200) {
-    toast.success("Rating Submitted");
-  }
-})
-.catch((error) => {
-  console.error("Error in Guide rating", error);
-  if (error.response && error.response.status === 400) {
-    toast.error("You have already rated this guide");
-  }
-});
-
+        setRateGuide((prev) => ({
+          ...prev,
+          [guideId]: {
+            ...prev[guideId],
+            submitted: true,
+          },
+        }));
+        console.log("Guide Rating submitted Successfully", res.data.data);
+        toast.success("Rating Submitted");
+      })
+      .catch((error) => {
+        console.error("Error in Guide rating", error);
+        if (error.response && error.response.status === 400) {
+          toast.error("You have already rated this guide");
+        }
+      });
   };
 
   const confirmDelete = () => {
@@ -323,23 +317,17 @@ const UserProfile = () => {
                                     },
                                   }))
                                 }
+                                disabled={RatePlace[item.placeId]?.submitted}
                               ></textarea>
                               <button
                                 className="mt-2 px-4 py-2 bg-[#1E3D2F] text-white text-sm rounded hover:bg-[#2e5545] disabled:opacity-50"
-                                onClick={() => {
+                                onClick={() =>
                                   handleRatePlace(
                                     item.placeId,
                                     RatePlace[item.placeId]?.ratingValue,
                                     RatePlace[item.placeId]?.review
-                                  );
-                                  setRatePlace((prev) => ({
-                                    ...prev,
-                                    [item.placeId]: {
-                                      ...prev[item.placeId],
-                                      submitted: true,
-                                    },
-                                  }));
-                                }}
+                                  )
+                                }
                                 disabled={
                                   RatePlace[item.placeId]?.submitted ||
                                   !RatePlace[item.placeId]?.ratingValue ||
@@ -404,6 +392,7 @@ const UserProfile = () => {
                                     },
                                   }))
                                 }
+                                disabled={RateGuide[item.guideId]?.submitted}
                               ></textarea>
                               <button
                                 className="mt-2 px-4 py-2 bg-[#1E3D2F] text-white text-sm rounded hover:bg-[#2e5545] disabled:opacity-50"
